@@ -15,7 +15,7 @@
     }
 
     background {
-        monitor =
+        monitor = DP-2
         path = /home/gagaryn/.dotfiles/bg.jpg
         blur_passes = 3
         blur_size = 7
@@ -26,7 +26,7 @@
     }
 
     input-field {
-        monitor =
+        monitor = DP-2
         size = 300, 50
         outline_thickness = 3
         dots_size = 0.26
@@ -44,7 +44,7 @@
     }
 
     label {
-        monitor =
+        monitor = DP-2
         text = cmd[update:1000] echo "$(date +"%H:%M:%S")"
         color = rgb(ffffff)
         font_size = 90
@@ -55,7 +55,7 @@
     }
 
     label {
-        monitor =
+        monitor = DP-2
         text = cmd[update:18000000] echo "$(date +"%A, %d %B")"
         color = rgb(ffffff)
         font_size = 24
@@ -66,7 +66,7 @@
     }
 
     label {
-        monitor =
+        monitor = DP-2
         text = $USER
         color = rgb(ffffff)
         font_size = 18
