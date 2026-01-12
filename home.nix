@@ -4,6 +4,8 @@
   imports = [
     ./modules/waybar.nix
     ./modules/wofi.nix
+    ./modules/hyprlock.nix
+    ./modules/hypridle.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
