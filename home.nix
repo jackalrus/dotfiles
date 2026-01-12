@@ -26,6 +26,7 @@
     pkgs.noto-fonts-color-emoji
     pkgs.nerd-fonts.jetbrains-mono
   ];
+  
 
   programs.git = {
     enable = true;
