@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/nvidia.nix
     ];
 
   # Bootloader.
@@ -76,7 +77,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # ____LOGIN____
+  ### LOGIN ###
   programs.hyprland = {
     enable = true;
   };
