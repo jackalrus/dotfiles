@@ -2,10 +2,11 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./modules/nvidia.nix
       ./modules/greetd.nix
+      ./modules/virtualization.nix
     ];
 
   # Bootloader.
@@ -46,15 +47,8 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
     code-cursor
-    virt-manager
-    qemu_kvm
-    libvirt
   ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
@@ -63,20 +57,4 @@
 
   programs.amnezia-vpn.enable = true;
   programs.firefox.enable = true;
-
-  ### VIRTUAL MASHINE ###
-  # --- ядро: загрузить модули KVM (Intel/AMD)
-  boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
-  # --- включаем libvirtd (qemu/kvm)
-  virtualisation.libvirtd.enable = true;
-  # используем qemu_kvm (быстрее чем generic qemu)
-  virtualisation.libvirtd.qemu.package = pkgs.qemu_kvm;
-  # включаем программную эмуляцию TPM (нужно для Windows 11)
-  virtualisation.libvirtd.qemu.swtpm.enable = true;
-  # OVMF (UEFI) — обычно OVMF-образы уже доступны, но если нужен полный пакет:
-  # virtualisation.libvirtd.qemu.ovmf.package = pkgs.OVMFFull; # (необязательно)
-  # --- GUI/пакеты для управления VM (пользовательский desktop)
-  programs.virt-manager.enable = true;  # активирует virt-manager для GUI
-  # (опционально) если нужен доступ к USB-редиректу для SPICE:
-  virtualisation.spiceUSBRedirection.enable = true;
 }
