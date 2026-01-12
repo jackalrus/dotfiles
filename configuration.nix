@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./modules/nvidia.nix
+      ./modules/greetd.nix
     ];
 
   # Bootloader.
@@ -33,21 +34,6 @@
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  # Configure keymap in X11
-#  services.xserver.enable = false;
-#  services.xserver.xkb = {
-#    layout = "us,ru";
-#    variant = ",";
-#    options = "grp:alt_shift_toggle";
-#  };
-
-#  services.pipewire = {
-#    enable = true;
-#    pulse.enable = true;
-#    alsa.enable = true;
-#    alsa.support32Bit = true;
-#  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.gagaryn = {
     isNormalUser = true;
@@ -65,8 +51,6 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    regreet
-    bibata-cursors
     code-cursor
     virt-manager
     qemu_kvm
@@ -77,43 +61,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  ### LOGIN ###
-  programs.hyprland = {
-    enable = true;
-  };
-  programs.regreet = {
-    enable = true;
-    cursorTheme.name = "Bibata-Modern-Classic";
-    settings = {
-      GTK.application_prefer_dark_theme = true;
-      background.path = "/etc/regreet/bg.jpg";
-      background.fit = "Contain";
-      appearance.greeting_msg = "Good Luck!";
-    };
-    extraCss = ''
-#      window { background-color: "#cccccc"; }
-#      box { background-color: blue; }
-#      label { color: "#cccccc"; }
-    '';
-  };
-  environment.etc = {
-    "regreet/bg.jpg" = {
-      source = ./bg.jpg;
-      mode = "0644";
-    };
-    "greetd/hyprland.conf" = {
-      source = ./hyprland-login.conf;
-    };
-  };
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "hyprland -c /etc/greetd/hyprland.conf";
-        user = "greeter";
-      };
-    };
-  };
   programs.amnezia-vpn.enable = true;
   programs.firefox.enable = true;
 
