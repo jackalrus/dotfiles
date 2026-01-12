@@ -51,7 +51,7 @@
   users.users.gagaryn = {
     isNormalUser = true;
     description = "gagayn";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "kvm" ];
     packages = with pkgs; [
     ];
   };
@@ -129,9 +129,6 @@
   # virtualisation.libvirtd.qemu.ovmf.package = pkgs.OVMFFull; # (необязательно)
   # --- GUI/пакеты для управления VM (пользовательский desktop)
   programs.virt-manager.enable = true;  # активирует virt-manager для GUI
-  # --- доступ пользователя к libvirt / KVM
-  users.users.gagaryn = {
-    isNormalUser = true;
-    extraGroups = [ "libvirtd" "kvm" ];
-  };
+  # (опционально) если нужен доступ к USB-редиректу для SPICE:
+  virtualisation.spiceUSBRedirection.enable = true;
 }
