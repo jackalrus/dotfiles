@@ -67,6 +67,9 @@
     regreet
     bibata-cursors
     code-cursor
+    virt-manager
+    qemu_kvm
+    libvirt
   ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
@@ -112,4 +115,23 @@
   };
   programs.amnezia-vpn.enable = true;
   programs.firefox.enable = true;
+
+  ### VIRTUAL MASHINE ###
+  # --- ядро: загрузить модули KVM (Intel/AMD)
+  boot.kernelModules = [ "kvm-intel" "kvm-amd" ];
+  # --- включаем libvirtd (qemu/kvm)
+  virtualisation.libvirtd.enable = true;
+  # используем qemu_kvm (быстрее чем generic qemu)
+  virtualisation.libvirtd.qemu.package = pkgs.qemu_kvm;
+  # включаем программную эмуляцию TPM (нужно для Windows 11)
+  virtualisation.libvirtd.qemu.swtpm.enable = true;
+  # OVMF (UEFI) — обычно OVMF-образы уже доступны, но если нужен полный пакет:
+  # virtualisation.libvirtd.qemu.ovmf.package = pkgs.OVMFFull; # (необязательно)
+  # --- GUI/пакеты для управления VM (пользовательский desktop)
+  programs.virt-manager.enable = true;  # активирует virt-manager для GUI
+  # --- доступ пользователя к libvirt / KVM
+  users.users.gagaryn = {
+    isNormalUser = true;
+    extraGroups = [ "libvirtd" "kvm" ];
+  };
 }
