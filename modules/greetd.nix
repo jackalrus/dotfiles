@@ -32,11 +32,11 @@
     "greetd/hyprland.conf" = {
       source = ../hyprland-login.conf;
     };
-    # Добавьте это для пользовательских сессий:
-    "greetd/environments" = {
-      text = "Hyprland:hyprland\n";
-      mode = "0644";
-    };
+    ## Добавьте это для пользовательских сессий:
+    #"greetd/environments" = {
+    #  text = "Hyprland:hyprland\n";
+    #  mode = "0644";
+    #};
   };
 
   # GreetD service configuration
